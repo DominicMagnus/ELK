@@ -1,0 +1,5 @@
+/usr/share/elasticsearch/bin/elasticsearch-create-enrollment-token.bat --scope kibana
+
+/usr/share/elasticsearch/bin/elasticsearch-create-enrollment-token.bat
+
+/usr/share/elasticsearch/bin/kibana-verification-code.bat
