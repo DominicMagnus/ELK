@@ -20,3 +20,10 @@ bin/elasticsearch-reset-password -u elastic
 # check
 curl --cacert /etc/elasticsearch/certs/http_ca.crt -u elastic:$ELASTIC_PASSWORD https://localhost:9200 
 
+# 
+http_ca.crt
+The CA certificate that is used to sign the certificates for the HTTP layer of this Elasticsearch cluster.
+http.p12
+Keystore that contains the key and certificate for the HTTP layer for this node.
+transport.p12
+Keystore that contains the key and certificate for the transport layer for all the nodes in your cluster.
