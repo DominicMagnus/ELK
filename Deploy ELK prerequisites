@@ -1,0 +1,42 @@
+# Installing Java on Ubuntu
+apt-get update
+
+sudo apt-get install default-jre
+ubuntu:~$ java -version
+
+# Instal File package
+sudo apt-get install file
+
+
+# Depricated
+wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -
+
+###################
+# FIX 
+###################
+
+wget https://artifacts.elastic.co/GPG-KEY-elasticsearch
+
+#check
+file GPG-KEY-elasticsearch
+
+# gpg supports a number of key formats, so if your key is in a different format, convert it by importing it into a temp keyring, then exporting it again:
+gpg --no-default-keyring --keyring ./temp-keyring.gpg --import GPG-KEY-elasticsearch
+gpg --no-default-keyring --keyring ./temp-keyring.gpg --export --output GPG-KEY-elasticsearch.gpg
+rm temp-keyring.gpg
+
+# copy keyring to /usr/share/keyrings/
+sudo cp GPG-KEY-elasticsearch.gpg /usr/share/keyrings/
+
+# At this point, nothing has changed and apt doesn't know the key exists. The last step is to modify the specific .list file for the repository to tell apt where to find the key for that specific repo.
+# Edit the file /etc/apt/sources.list.d/<example>.list, and in between deb and the url, add [signed-by=/etc/apt/keyrings/<your-keyfile-name>.gpg]
+
+echo "deb [signed-by=/usr/share/keyrings/GPG-KEY-elasticsearch.gpg] https://artifacts.elastic.co/packages/8.x/apt stable main" | sudo tee -a /etc/apt/sources.list.d/elastic-8.x.list
+
+deb [signed-by=/usr/share/keyrings/GPG-KEY-elasticsearch.gpg] https://artifacts.elastic.co/packages/8.x/apt stable main
+
+
+# version tested 8.14.1
+
+# GPT sugg
+wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo tee /usr/share/keyrings/elasticsearch-archive-keyring.gpg >/dev/null
